@@ -1,0 +1,19 @@
+{
+    "scriptFile": "__init__.py",
+    "bindings": [
+        {
+            "name": "myBlob",
+            "type": "blobTrigger",
+            "direction": "in",
+            "path": "src/{name}",
+            "connection": "DataStorage"
+        },
+        {
+            "name": "myOutputBlob",
+            "type": "blob",
+            "path": "out/{name}.jblob",
+            "connection": "DataStorage",
+            "direction": "out"
+        }
+    ]
+}
