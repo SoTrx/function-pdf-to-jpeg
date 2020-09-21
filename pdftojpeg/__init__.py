@@ -17,7 +17,6 @@ def main(myBlob: func.InputStream, myOutputBlob: func.Out[func.InputStream]):
         return
     # NOP instruction to prevent warnings 
     myOutputBlob
-    logging.debug(environ)
     # Retrieving the BLOB container
     connection_string = environ['OutputStorage']
     logging.debug(f"Connection string is : {connection_string}")
@@ -35,6 +34,6 @@ def main(myBlob: func.InputStream, myOutputBlob: func.Out[func.InputStream]):
     for index, img in enumerate(img_list, start=1):
         bIO = BytesIO()
         img.save(bIO, format="jpeg")  
-        blob_container.upload_blob(f"{myBlob.name}-{index}.jpg", bIO)
+        blob_container.upload_blob(f"{myBlob.name.split('/')[-1]}-{index}.jpg", bIO.getvalue())
     
     logging.info(f"Processing complete for file {myBlob.name} ({len(img_list)} pages)" )
