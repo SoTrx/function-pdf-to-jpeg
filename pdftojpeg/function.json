@@ -11,7 +11,7 @@
         {
             "name": "myOutputBlob",
             "type": "blob",
-            "path": "images/{name}.jblob",
+            "path": "images/{name}.jpg",
             "connection": "OutputStorage",
             "direction": "out"
         }
