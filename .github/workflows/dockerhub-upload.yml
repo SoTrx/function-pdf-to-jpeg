@@ -22,3 +22,4 @@ jobs:
           image: dockerutils/pypdftojpg
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+          tag: ${{ steps.vars.outputs.short_ref }}
