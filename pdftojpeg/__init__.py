@@ -13,9 +13,9 @@ def main(myBlob: func.InputStream, myOutputBlob: func.Out[func.InputStream]):
         logging.info(f"{myBlob.name} isn't a PDF file, aborting.")
         return
     
-    img_list = convert_from_bytes(myBlob.read(), fmt="jpg", thread_count=cpu_count())
+    img_list = convert_from_bytes(myBlob.read(), fmt="jpg", thread_count=cpu_count(), single_file=True)
     bIO = BytesIO()
     for img in img_list:
         img.save(bIO, format="jpeg")  
     myOutputBlob.set(bIO.getvalue())
-    logging.info(f"Processing complete for file {myBlob.name} ({len(img_list)} pages)" )
+    logging.info(f"Processing complete for file")
