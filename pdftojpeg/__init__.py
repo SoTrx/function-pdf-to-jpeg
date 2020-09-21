@@ -7,7 +7,7 @@ from azure.storage.blob import ContainerClient
 
 DEST_CONTAINER_NAME="images"
 
-def main(myBlob: func.InputStream):
+def main(myBlob: func.InputStream, myOutputBlob: func.Out[func.InputStream]):
     logging.info(f"Python blob trigger function processed blob \n"
                  f"Name: {myBlob.name}\n"
                  f"Blob Size: {myBlob.length} bytes")
@@ -15,7 +15,8 @@ def main(myBlob: func.InputStream):
     if(not myBlob.name.endswith(".pdf")):
         logging.info(f"{myBlob.name} isn't a PDF file, aborting.")
         return
-    
+    # NOP instruction to prevent warnings 
+    myOutputBlob
     # Retrieving the BLOB container
     connection_string = environ['CUSTOMCONNSTR_OutputStorage']
     logging.debug(f"Connection string is : {connection_string}")
