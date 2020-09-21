@@ -5,13 +5,13 @@
             "name": "myBlob",
             "type": "blobTrigger",
             "direction": "in",
-            "path": "src/{name}",
+            "path": "pdfs/{name}",
             "connection": "InputStorage"
         },
         {
             "name": "myOutputBlob",
             "type": "blob",
-            "path": "out/{name}.jblob",
+            "path": "images/{name}.jblob",
             "connection": "OutputStorage",
             "direction": "out"
         }
