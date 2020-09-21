@@ -17,8 +17,9 @@ def main(myBlob: func.InputStream, myOutputBlob: func.Out[func.InputStream]):
         return
     # NOP instruction to prevent warnings 
     myOutputBlob
+    logging.debug(environ)
     # Retrieving the BLOB container
-    connection_string = environ['CUSTOMCONNSTR_OutputStorage']
+    connection_string = environ['OutputStorage']
     logging.debug(f"Connection string is : {connection_string}")
     blob_container = ContainerClient.from_connection_string(conn_str=connection_string, container_name=DEST_CONTAINER_NAME)
     try:
