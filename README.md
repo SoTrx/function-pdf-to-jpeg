@@ -1,10 +1,12 @@
 # PDF to JPEG Azure Function (Custom docker runtime)
 
-This Azure function uses the [pdf2image](https://pypi.org/project/pdf2image/) library to convert PDF files to JPEG format. Each page is converted to JPEG. All the pages are then concatenated together into an .jblob file. 
+This Azure function uses the [pdf2image](https://pypi.org/project/pdf2image/) library to convert PDF files to JPEG format. 
 
-The .jblob file can then be converted back into multiple JPEGs by parsing it ([example parser](https://github.com/SoTrx/jblob-decoder)).
+There are multiple ways this project can be used:
++ The **master** branch will convert every page to JPEG and concatenate them togetehr into a single .jblob file. The .jblob file can then be converted back into multiple JPEGs by parsing it ([example parser](https://github.com/SoTrx/jblob-decoder)).
++ The **first_page_only** branch will only convert the first page to JPEG and save it as a .jpg file.
 
-The function is triggered each time a file is dropped in the **src** BLOB container and puts the resulting .jblob in the **out** BLOB container. Both **src** and **out** are in the same Storage Account **DataStorage** (see [Configuration](#configuration)).
+The function is triggered each time a file is dropped in the **pdfs** BLOB container and puts the resulting .jblob in the **images** BLOB container. (see [Configuration](#configuration)).
 
 ## Usage
 
@@ -14,7 +16,7 @@ Once the Function App is created, select "Container settings" is the app dashboa
 
 ## Configuration 
 
-This function uses a single variable called **DataStorage**. In the app dashboard, select "Configuration" and provide a value for DataStorage (The Storage Account access key).
+This function uses two variables called **InputStorage** and **OutputStorage**. In the app dashboard, select "Configuration" and provide a value for both InputStorage and OutputStorage (The Storage Accounts access key). Both variable can designate the same Azure Data Storage
 
 See the [application settings documentation](https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings#settings).
 
@@ -26,14 +28,14 @@ See the [application settings documentation](https://docs.microsoft.com/en-us/az
             "name": "myBlob",
             "type": "blobTrigger",
             "direction": "in",
-            "path": "src/{name}",
-            "connection": "DataStorage"
+            "path": "pdfs/{name}",
+            "connection": "InputStorage"
         },
         {
             "name": "myOutputBlob",
             "type": "blob",
-            "path": "out/{name}.jblob",
-            "connection": "DataStorage",
+            "path": "images/{name}.jblob",
+            "connection": "OutputStorage",
             "direction": "out"
         }
     ]
